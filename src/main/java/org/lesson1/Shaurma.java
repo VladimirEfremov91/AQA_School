@@ -1,4 +1,4 @@
-package org.example;
+package org.lesson1;
 public class Shaurma {
     public static void main(String[] args) {
         String employeeName = "Вася";

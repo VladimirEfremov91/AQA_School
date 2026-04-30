@@ -1,4 +1,4 @@
-package org.example;
+package org.lesson2;
 import java.util.Random;
 
 public class Coach {
