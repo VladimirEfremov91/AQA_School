@@ -27,9 +27,12 @@ public class SecretMessageDecoder {
 
         //Собираем сообщение
         for (int i = 0; i < secretMessage.length; i++) {
-            secretMessageString = secretMessageString.concat((secretMessage[i] + "#"));
+            secretMessageString = secretMessageString.concat((secretMessage[i]));
+            if (i < secretMessage.length - 1) {
+                secretMessageString = secretMessageString + "#";
+            }
         }
-        secretMessageString = secretMessageString.substring(0, secretMessageString.length() - 1);
-        System.out.println(" Расшифрованное послание: " + secretMessageString);
+
+        System.out.println("Расшифрованное послание: " + secretMessageString);
     }
 }
