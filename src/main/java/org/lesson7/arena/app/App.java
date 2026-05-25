@@ -6,7 +6,7 @@ import org.lesson7.arena.heroes.Knight;
 import org.lesson7.arena.heroes.Mage;
 
 public class App {
-    public static void main(String[] args){{
+    public static void main(String[] args){
         Hero[] heroes = {
                 new Knight("Арагорн", 4, 10, 10),
                 new Archer("Леголас", 5, 20, 11),
@@ -32,5 +32,5 @@ public class App {
 
 //      Количество созданных героев
         Hero.printHeroesCreated();
-}}
+    }
 }
