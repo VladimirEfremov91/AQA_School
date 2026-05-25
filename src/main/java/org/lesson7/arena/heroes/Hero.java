@@ -1,9 +1,10 @@
 package org.lesson7.arena.heroes;
 
 public class Hero {
-    private String name;
-    private int level;
-    private int health;
+    protected String name;
+    protected int level;
+    protected int health;
+
     private static final int MAX_LEVEL = 100;
     private static int heroesCreated = 0;
 
@@ -41,11 +42,15 @@ public class Hero {
 
 
     public void printInfo() {
-        System.out.println("Имя героя: " + name + ". Здоровье: " + level);
+        System.out.println("Имя героя: " + name + ". Здоровье: " + health + ". Уровень: " + level + ".");
     }
 
     public void takeDamage(int damage) {
-        this.health = damage < this.health ? this.health - damage : 0;
+        if (damage > this.health) {
+            this.health = 0;
+        } else  {
+            this.health -= damage;
+        }
     }
 
     public void levelUp() {
@@ -71,15 +76,15 @@ public class Hero {
     }
 
     public final void rest() {
-        System.out.println("Герой отдыхает и восстанавливается");
+        System.out.println("Герой отдыхает и восстанавливает силы");
     }
 
-    @Override
-    public String toString() {
-        return "Hero {" +
-                "name = " + name +
-                ", level = " + level +
-                ", health = " + health +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Hero {" +
+//                "name = " + name +
+//                ", level = " + level +
+//                ", health = " + health +
+//                '}';
+//    }
 }

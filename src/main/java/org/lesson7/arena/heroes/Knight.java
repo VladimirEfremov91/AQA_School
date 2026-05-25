@@ -18,4 +18,13 @@ public class Knight extends Hero {
 //        super.rest();
 //    }
 
+    @Override
+    public String toString() {
+        return "Knight{" +
+                "name='" + name + '\'' +
+                ", level=" + level +
+                ", health=" + health +
+                ", armor=" + armor +
+                '}';
+    }
 }
