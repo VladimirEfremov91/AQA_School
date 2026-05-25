@@ -1,9 +1,9 @@
 package org.lesson7.arena.heroes;
 
 public class Hero {
-    protected String name;
-    protected int level;
-    protected int health;
+    private String name;
+    private int level;
+    private int health;
 
     private static final int MAX_LEVEL = 100;
     private static int heroesCreated = 0;
@@ -79,12 +79,4 @@ public class Hero {
         System.out.println("Герой отдыхает и восстанавливает силы");
     }
 
-//    @Override
-//    public String toString() {
-//        return "Hero {" +
-//                "name = " + name +
-//                ", level = " + level +
-//                ", health = " + health +
-//                '}';
-//    }
 }
