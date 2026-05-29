@@ -29,8 +29,7 @@ public class Playlist {
     //  Обновление песни в плейлисте по индексу
     public void updateSong (int index, String songName) {
         String oldSong = songsList.get(index);
-        songsList.remove(index);
-        songsList.add(index, songName);
+        songsList.set(index, songName);
         System.out.println("Плейлист обновлен: песня '" + oldSong + "' заменена на '" + songName + "'");
     }
 
