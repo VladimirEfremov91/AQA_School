@@ -8,12 +8,20 @@ public class Winamp {
     public static void main(String[] args) {
         Playlist playlist = new Playlist("Кринж на проде", new ArrayList<>());
 
+//        Добавляем новые песни в плейлист
         playlist.addSong("Шаман - Я русский");
         playlist.addSong("Алла Пугачева - Примадонна");
         playlist.addSong("Тату - Нас не догонят");
         playlist.addSong("Филипп Киркоров - Не та дверь");
-        playlist.getSongName(2);
+
+//        Получаем песню по индексу
+        playlist.getSongName(1);
+
+//        Удаляем песню по индексу
         playlist.removeSong(1);
+
+//        Обновляем песню по индексу
+        playlist.getSongName(0);
         playlist.updateSong(0, "Аркадий Укупник - Зараза");
 
         System.out.println(playlist);

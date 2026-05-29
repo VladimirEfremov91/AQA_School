@@ -11,23 +11,7 @@ public class Playlist {
         this.songsList = songsList;
     }
 
-    public String getPlaylistName() {
-        return playlistName;
-    }
-
-    public void setPlaylistName(String playlistName) {
-        this.playlistName = playlistName;
-    }
-
-    public ArrayList<String> getSongsList() {
-        return songsList;
-    }
-
-    public void setSongsList(ArrayList<String> songsList) {
-        this.songsList = songsList;
-    }
-
-//    public Playlist() {}
+    public Playlist() {}
 
     //  Добавление песни в плейлист
     public void addSong (String songName) {
@@ -52,15 +36,16 @@ public class Playlist {
 
 //    Получение песни по индексу
     public String getSongName(int index) {
-        System.out.println("Из плейлиста получена песня: '" + songsList.get(index) + "'");
-        return songsList.get(index);
+        String song = songsList.get(index);
+        System.out.println("Из плейлиста получена песня: '" + song + "'");
+        return song;
     }
 
     @Override
     public String toString() {
-        return "Playlist{" +
-                "playlistName='" + playlistName + '\'' +
-                ", songsList=" + songsList +
+        return "Playlist {" +
+                "Название плейлиста = '" + playlistName + '\'' +
+                ", Список песен = " + songsList +
                 '}';
     }
 }
