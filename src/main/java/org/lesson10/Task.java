@@ -2,12 +2,19 @@ package org.lesson10;
 
 public class Task {
     private String taskName;
-    private Boolean  taskStatus;
+    private Boolean isTaskCompleted;
 
-    public Task(String taskName, Boolean taskStatus) {
+    public Task(String taskName, Boolean isTaskCompleted) {
         this.taskName = taskName;
-        this.taskStatus = taskStatus;
+        this.isTaskCompleted = isTaskCompleted;
     }
+
+    public Task(String taskName) {
+        this.taskName = taskName;
+        this.isTaskCompleted = false;
+    }
+
+    public Task() {}
 
     public String getTaskName() {
         return taskName;
@@ -17,11 +24,23 @@ public class Task {
         this.taskName = taskName;
     }
 
-    public Boolean getTaskStatus() {
-        return taskStatus;
+    public Boolean getIsTaskCompleted() {
+        return isTaskCompleted;
     }
 
-    public void setTaskStatus(Boolean taskStatus) {
-        this.taskStatus = taskStatus;
+    public void setIsTaskCompleted(Boolean isTaskCompleted) {
+        this.isTaskCompleted = isTaskCompleted;
     }
+
+    public void setTaskCompleted() {
+        this.isTaskCompleted = true;
+    }
+
+    public void showTask() {
+        if (isTaskCompleted) {
+            System.out.println("[*] " + taskName);
+        }
+        System.out.println("[ ] " + taskName);
+    }
+
 }
