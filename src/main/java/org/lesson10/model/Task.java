@@ -1,4 +1,4 @@
-package org.lesson10;
+package org.lesson10.model;
 
 public class Task {
     private String taskName;
@@ -32,15 +32,12 @@ public class Task {
         this.isTaskCompleted = isTaskCompleted;
     }
 
-    public void setTaskCompleted() {
-        this.isTaskCompleted = true;
-    }
-
     public void showTask() {
-        if (isTaskCompleted) {
+        if (isTaskCompleted = true) {
             System.out.println("[*] " + taskName);
-        }
+        } else {
         System.out.println("[ ] " + taskName);
+        }
     }
 
 }
