@@ -2,7 +2,7 @@ package org.lesson10.model;
 
 public class Task {
     private String taskName;
-    private Boolean isTaskCompleted;
+    private boolean isTaskCompleted;
 
     public Task(String taskName, Boolean isTaskCompleted) {
         this.taskName = taskName;
@@ -14,7 +14,7 @@ public class Task {
         this.isTaskCompleted = false;
     }
 
-    public Task() {}
+//    public Task() {}
 
     public String getTaskName() {
         return taskName;
@@ -33,7 +33,7 @@ public class Task {
     }
 
     public void showTask() {
-        if (isTaskCompleted = true) {
+        if (isTaskCompleted) {
             System.out.println("[*] " + taskName);
         } else {
         System.out.println("[ ] " + taskName);
