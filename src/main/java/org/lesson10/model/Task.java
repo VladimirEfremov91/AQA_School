@@ -14,8 +14,6 @@ public class Task {
         this.isTaskCompleted = false;
     }
 
-//    public Task() {}
-
     public String getTaskName() {
         return taskName;
     }
@@ -36,7 +34,7 @@ public class Task {
         if (isTaskCompleted) {
             System.out.println("[*] " + taskName);
         } else {
-        System.out.println("[ ] " + taskName);
+            System.out.println("[ ] " + taskName);
         }
     }
 
