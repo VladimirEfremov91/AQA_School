@@ -23,6 +23,7 @@ private Task findTask(String taskName) {
 
 //    Смотрим все задачи
     public void showAllTasks() {
+        System.out.println("\nЗадачи:");
         for (Task task : tasks) {
             task.showTask();
         }
@@ -33,9 +34,9 @@ private Task findTask(String taskName) {
         Task foundTask = findTask(taskName);
         if (foundTask != null) {
             foundTask.setIsTaskCompleted(true);
-            System.out.println("Задача \"" + taskName + "\" отмечена как выполненная");
+            System.out.println("\nЗадача \"" + taskName + "\" отмечена как выполненная");
         } else {
-            System.out.println("Задача \"" + taskName + "\" не найдена");
+            System.out.println("\nЗадача \"" + taskName + "\" не найдена");
         }
     }
 
@@ -44,12 +45,12 @@ private Task findTask(String taskName) {
         Task foundTask = findTask(taskName);
         if (foundTask != null) {
             if (foundTask.getIsTaskCompleted()) {
-                System.out.println("Статус задачи \"" + taskName + "\": ВЫПОЛНЕНО");
+                System.out.println("\nСтатус задачи \"" + taskName + "\": ВЫПОЛНЕНО");
             } else {
-                System.out.println("Статус задачи \"" + taskName + "\": НЕ ВЫПОЛНЕНО");
+                System.out.println("\nСтатус задачи \"" + taskName + "\": НЕ ВЫПОЛНЕНО");
             }
         } else {
-            System.out.println("Задача \"" + taskName + "\" не найдена");
+            System.out.println("\nЗадача \"" + taskName + "\" не найдена");
         }
     }
 
@@ -63,7 +64,7 @@ private Task findTask(String taskName) {
             }
         }
         int openTasks = totalTasks - completedTasks;
-        System.out.println("Статистика по задачам:");
+        System.out.println("\nСтатистика по задачам:");
         System.out.println("Всего задач: " + totalTasks);
         System.out.println("Выполнено: " + completedTasks);
         System.out.println("Открыто: " + openTasks);
