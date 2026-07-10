@@ -4,6 +4,7 @@ import org.lesson12.Exceptions.*;
 
 public class BaggageDropDesk {
     private final String[] availableFlights;
+    private static final int BAGGAGE_FARE = 332;
 
     public BaggageDropDesk(String[] availableFlights) {
         this.availableFlights = availableFlights;
@@ -11,12 +12,6 @@ public class BaggageDropDesk {
 
     //Метод сдачи багажа
     public BaggageTicket baggageCheckIn(String passengerName, String flightNumber, int baggageWeight) throws AirportServiceException {
-        if (passengerName == null || passengerName.equals("")) {
-            throw new InvalidPassengerNameException("Имя пассажира не должно быть пустым");
-        }
-        if (baggageWeight <= 0) {
-            throw new InvalidBaggageWeightException("Вес багажа не может быть меньше или равен нуля");
-        }
         if (flightNumber == null || flightNumber.equals("")) {
             throw new FlightNotFoundException("Проверь ввод номера рейса");
         }
@@ -30,13 +25,20 @@ public class BaggageDropDesk {
         if (!foundFlight) {
             throw new FlightNotFoundException("Такого рейса не существует в данном аэропорте");
         }
+        if (passengerName == null || passengerName.equals("")) {
+            throw new InvalidPassengerNameException("Имя пассажира не должно быть пустым");
+        }
+        if (baggageWeight <= 0) {
+            throw new InvalidBaggageWeightException("Вес багажа не может быть меньше или равен нуля");
+        }
         if (baggageWeight > 23) {
             throw new OverweightBaggageException("Ваш багаж слишком тяжел для этого самолета");
         }
         if (passengerName.equals("Мисс Бурпл")) {
             throw new BaggageTagPrintException("У нас тут случайно всё сломалось, какая неожиданность!");
         }
-        System.out.println("Уважаемый " + passengerName + ", Вам начислен налог за выдачу бирки в размере: 777 руб.");
+        int baggageTax = baggageWeight * BAGGAGE_FARE;
+        System.out.println("Уважаемый " + passengerName + ", Вам начислен налог за выдачу бирки в размере: " + baggageTax + " руб.");
         return new BaggageTicket(passengerName, flightNumber, baggageWeight);
     }
 
