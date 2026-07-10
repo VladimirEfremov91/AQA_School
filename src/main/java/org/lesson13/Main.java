@@ -31,5 +31,15 @@ public class Main {
         SquadManager squadManager = new SquadManager();
         squadManager.demonstrateListCreations();
         System.out.println("---------------------------------------------");
+
+        // Часть 3: Отсеивание трусов
+        ArrayList <String> soldiers = new ArrayList<>();
+        soldiers.addLast("Ваня");
+        soldiers.addLast("Трус Петя");
+        soldiers.addLast("Иван");
+        soldiers.addLast("Трус Кузя");
+        soldiers.addLast("Вано");
+        squadManager.filterOutCowards(soldiers, "Трус");
+        System.out.println("---------------------------------------------");
     }
 }

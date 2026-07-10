@@ -2,6 +2,7 @@ package org.lesson13;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class SquadManager {
@@ -63,5 +64,19 @@ public class SquadManager {
         } catch (Exception e) {
             System.out.println(e.getClass().getSimpleName());
         }
+    }
+
+    public void filterOutCowards(List squad, String keyWord) {
+        System.out.println("Отряд до фильтрации: " + squad);
+        Iterator<String> iterator = squad.iterator();
+        while (iterator.hasNext()) {
+            {
+                String name = iterator.next();
+                if (name.startsWith(keyWord)) {
+                    iterator.remove();
+                }
+            }
+        }
+        System.out.println("Отряд после фильтрации по ключевому слову \"" + keyWord + "\": "  + squad);
     }
 }
