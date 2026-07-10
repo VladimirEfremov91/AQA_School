@@ -25,5 +25,11 @@ public class Main {
             }
         }
         System.out.println("Список содержит дубликат: " + hasDuplicate);
+        System.out.println("---------------------------------------------");
+
+        // Часть 2: Формирование отрядов
+        SquadManager squadManager = new SquadManager();
+        squadManager.demonstrateListCreations();
+        System.out.println("---------------------------------------------");
     }
 }
