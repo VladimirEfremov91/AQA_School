@@ -1,6 +1,8 @@
 package org.lesson13;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
@@ -41,5 +43,23 @@ public class Main {
         soldiers.addLast("Вано");
         squadManager.filterOutCowards(soldiers, "Трус");
         System.out.println("---------------------------------------------");
+
+        // Часть 4: Очередь на вход
+        AssaultQueue queue  = new AssaultQueue();
+        String[] volunteers = {"Зефир", "Кефир", "Портной", "Кучерявый", "Степан"};
+        for (String volunteer : volunteers) {
+            queue.addRecruit(volunteer);
+        }
+        queue.printQueue();
+        String coward1 = queue.retreatCoward();
+        String coward2 = queue.retreatCoward();
+        System.out.println(coward1 + " " + coward2);
+        queue.addRecruit("Пегас");
+        queue.addRecruit("Федя");
+        queue.addRecruit("Аватар");
+        queue.printQueue();
+        System.out.println("---------------------------------------------");
+
+
     }
 }
