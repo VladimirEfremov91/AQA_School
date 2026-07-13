@@ -1,6 +1,6 @@
 package org.lesson13;
 
-import java.util.List;;
+import java.util.List;
 
 public class MissionReport {
     private String missionName;

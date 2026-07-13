@@ -25,7 +25,7 @@ public class SquadManager {
 
         try {
             mainSquad.remove("Лея");
-            System.out.println("Боец Люк успешно удален из Основного отряда");
+            System.out.println("Боец Лея успешно удален из Основного отряда");
         } catch (Exception e) {
             System.out.println(e.getClass().getSimpleName());
         }
@@ -43,7 +43,7 @@ public class SquadManager {
 
         try {
             helpDeskSquad.remove("Чип");
-            System.out.println("Боец Люк успешно удален из Отряда поддержки");
+            System.out.println("Боец Чип успешно удален из Отряда поддержки");
         } catch (Exception e) {
             System.out.println(e.getClass().getSimpleName());
         }
@@ -60,21 +60,19 @@ public class SquadManager {
 
         try {
             eliteSquad.remove("Фред");
-            System.out.println("Боец Люк успешно удален из Элитного отряда");
+            System.out.println("Боец Фред успешно удален из Элитного отряда");
         } catch (Exception e) {
             System.out.println(e.getClass().getSimpleName());
         }
     }
 
-    public void filterOutCowards(List squad, String keyWord) {
+    public void filterOutCowards(List<String> squad, String keyWord) {
         System.out.println("Отряд до фильтрации: " + squad);
         Iterator<String> iterator = squad.iterator();
         while (iterator.hasNext()) {
-            {
-                String name = iterator.next();
-                if (name.startsWith(keyWord)) {
-                    iterator.remove();
-                }
+            String name = iterator.next();
+            if (name.startsWith(keyWord)) {
+                iterator.remove();
             }
         }
         System.out.println("Отряд после фильтрации по ключевому слову \"" + keyWord + "\": "  + squad);

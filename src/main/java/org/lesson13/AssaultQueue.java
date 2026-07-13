@@ -3,18 +3,10 @@ package org.lesson13;
 import java.util.LinkedList;
 
 public class AssaultQueue {
-    private LinkedList queue;
+    private final LinkedList<String> queue;
 
     public AssaultQueue() {
         queue = new LinkedList<>();
-    }
-
-    public LinkedList getQueue() {
-        return queue;
-    }
-
-    public void setQueue(LinkedList queue) {
-        this.queue = queue;
     }
 
     @Override
@@ -30,7 +22,7 @@ public class AssaultQueue {
     }
 
     public String retreatCoward() {
-       return queue.removeFirst().toString();
+       return queue.removeFirst();
     }
 
     public void printQueue() {

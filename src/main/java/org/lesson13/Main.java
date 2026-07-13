@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList <Alien> aliens = new ArrayList<>();
-        aliens.addLast(new Alien("Дарт", "Татуин", 8));
-        aliens.addLast(new Alien("Фредди", "Вязовая", 10));
-        aliens.addLast(new Alien("Альф", "Альфа-Центавра", 1));
-        aliens.addLast(new Alien("Глазастик", "Регулус", 3));
-        aliens.addLast(new Alien("Глазастик", "Регулус", 6));
+        ArrayList<Alien> aliens = new ArrayList<>();
+        aliens.add(new Alien("Дарт", "Татуин", 8));
+        aliens.add(new Alien("Фредди", "Вязовая", 10));
+        aliens.add(new Alien("Альф", "Альфа-Центавра", 1));
+        aliens.add(new Alien("Глазастик", "Регулус", 3));
+        aliens.add(new Alien("Глазастик", "Регулус", 6));
 
         //Часть 1: Ищем дубликаты пришельцев
         System.out.println("Часть 1: Ищем дубликаты пришельцев");
@@ -36,18 +36,18 @@ public class Main {
 
         // Часть 3: Отсеивание трусов
         System.out.println("Часть 3: Отсеивание трусов");
-        ArrayList <String> soldiers = new ArrayList<>();
-        soldiers.addLast("Ваня");
-        soldiers.addLast("Трус Петя");
-        soldiers.addLast("Иван");
-        soldiers.addLast("Трус Кузя");
-        soldiers.addLast("Вано");
+        ArrayList<String> soldiers = new ArrayList<>();
+        soldiers.add("Ваня");
+        soldiers.add("Трус Петя");
+        soldiers.add("Иван");
+        soldiers.add("Трус Кузя");
+        soldiers.add("Вано");
         squadManager.filterOutCowards(soldiers, "Трус");
         System.out.println("---------------------------------------------");
 
         // Часть 4: Очередь на вход
         System.out.println("Часть 4: Очередь на вход");
-        AssaultQueue queue  = new AssaultQueue();
+        AssaultQueue queue = new AssaultQueue();
         String[] volunteers = {"Зефир", "Кефир", "Портной", "Кучерявый", "Степан"};
         for (String volunteer : volunteers) {
             queue.addRecruit(volunteer);
@@ -64,9 +64,10 @@ public class Main {
 
         // Часть 5: Отчёт командованию
         System.out.println("Часть 5: Отчёт командованию");
-        MissionReport missionReport = new MissionReport("Захват зоны 51", aliens , soldiers.size());
+        MissionReport missionReport = new MissionReport("Захват зоны 51", aliens, soldiers.size());
         System.out.println(missionReport);
-        MissionReport missionReport1 = new MissionReport("Захват зоны 51", aliens , soldiers.size());
+
+        MissionReport missionReport1 = new MissionReport("Захват зоны 51", aliens, soldiers.size());
         System.out.println("Сравниваем отчеты через ==: " + (missionReport1 == missionReport));
         System.out.println("Сравниваем отчеты через equals: " + missionReport1.equals(missionReport));
         System.out.println("-------------------------------------------");
