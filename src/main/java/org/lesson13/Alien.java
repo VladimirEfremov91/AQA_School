@@ -21,22 +21,6 @@ public class Alien {
         this.name = name;
     }
 
-    public String getPlanet() {
-        return planet;
-    }
-
-    public void setPlanet(String planet) {
-        this.planet = planet;
-    }
-
-    public int getDangerLevel() {
-        return dangerLevel;
-    }
-
-    public void setDangerLevel(int dangerLevel) {
-        this.dangerLevel = dangerLevel;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
