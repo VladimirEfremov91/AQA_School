@@ -1,6 +1,8 @@
 package org.lesson13;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,20 +11,15 @@ public class Main {
         aliens.add(new Alien("Фредди", "Вязовая", 10));
         aliens.add(new Alien("Альф", "Альфа-Центавра", 1));
         aliens.add(new Alien("Глазастик", "Регулус", 3));
-        aliens.add(new Alien("Глазастик", "Регулус", 6));
+        aliens.add(new Alien("Глазастик", "Регулус1", 6));
 
         //Часть 1: Ищем дубликаты пришельцев
         System.out.println("Часть 1: Ищем дубликаты пришельцев");
         boolean hasDuplicate = false;
-        for (int i = 0; i < aliens.size(); i++) {
-            for (int j = i + 1; j < aliens.size(); j++) {
-                if (aliens.get(i).equals(aliens.get(j))) {
-                    hasDuplicate = true;
-                    break;
-                }
-            }
-            if (hasDuplicate) {
-                break;
+        Set<Alien> unique = new HashSet<>();
+        for (Alien alien : aliens) {
+            if (!unique.add(alien)) {
+                hasDuplicate = true;
             }
         }
         System.out.println("Список содержит дубликат: " + hasDuplicate);
