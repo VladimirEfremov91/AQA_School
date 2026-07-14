@@ -1,6 +1,7 @@
 package org.lesson13;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MissionReport {
     private String missionName;
@@ -19,5 +20,17 @@ public class MissionReport {
                 "  Название задания: " + missionName +
                 ",\n  Поймано пришельцев: " + capturedAliens.size() +
                 ",\n  Размер отряда: " + squadSize;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        MissionReport that = (MissionReport) o;
+        return squadSize == that.squadSize && Objects.equals(missionName, that.missionName) && Objects.equals(capturedAliens, that.capturedAliens);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(missionName, capturedAliens, squadSize);
     }
 }
