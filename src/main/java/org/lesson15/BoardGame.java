@@ -1,4 +1,6 @@
-package org.lesson15.TASK15;
+package org.lesson15;
+
+import java.util.Objects;
 
 public class BoardGame {
     private String title;
@@ -40,5 +42,17 @@ public class BoardGame {
 
     public boolean canBeRentedBy(int age) {
         return age >= minAge;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        BoardGame boardGame = (BoardGame) o;
+        return minAge == boardGame.minAge && Double.compare(oneDayPrice, boardGame.oneDayPrice) == 0 && Objects.equals(title, boardGame.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, minAge, oneDayPrice);
     }
 }
