@@ -44,6 +44,10 @@ public class BoardGame {
         return age >= minAge;
     }
 
+    public void setRent(boolean rent) {
+        isRent = rent;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
