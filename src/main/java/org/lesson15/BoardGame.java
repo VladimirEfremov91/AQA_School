@@ -5,10 +5,10 @@ import java.util.Objects;
 public class BoardGame {
     private String title;
     private int minAge;
-    private double oneDayPrice;
+    private int oneDayPrice;
     private boolean isRent;
 
-    public BoardGame(String title, int minAge, double oneDayPrice) {
+    public BoardGame(String title, int minAge, int oneDayPrice) {
         if (title == null || title.length() == 0) {
             throw new IllegalArgumentException("Название не может быть null или пустым");
         }
@@ -32,7 +32,7 @@ public class BoardGame {
         return minAge;
     }
 
-    public double getOneDayPrice() {
+    public int getOneDayPrice() {
         return oneDayPrice;
     }
 
@@ -52,7 +52,7 @@ public class BoardGame {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         BoardGame boardGame = (BoardGame) o;
-        return minAge == boardGame.minAge && Double.compare(oneDayPrice, boardGame.oneDayPrice) == 0 && Objects.equals(title, boardGame.title);
+        return minAge == boardGame.minAge && oneDayPrice == boardGame.oneDayPrice && Objects.equals(title, boardGame.title);
     }
 
     @Override

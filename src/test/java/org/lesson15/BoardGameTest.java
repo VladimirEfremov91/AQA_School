@@ -11,8 +11,8 @@ public class BoardGameTest {
 
     @ParameterizedTest
     @CsvSource({
-            "'Иван Васильевич меняет профессию', 18, 1.0",
-            "'Для самых маленьких', 0, 250.0",
+            "'Иван Васильевич меняет профессию', 18, 1",
+            "'Для самых маленьких', 0, 250",
             "'Дурак', 3, 0"
     })
     void testCreateBoardGameHappyPath(String title, int minAge, double oneDayPrice) {
@@ -28,7 +28,7 @@ public class BoardGameTest {
     void testCreateBoardGameNameValidation(String title) {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> new BoardGame(title, 20, 100.0),
+                () -> new BoardGame(title, 20, 100),
                 "Конструктор должен выбрасывать IllegalArgumentException при некорректном названии игры: " + title
         );
     }
@@ -37,7 +37,7 @@ public class BoardGameTest {
     void testCreateBoardGameAgeValidation() {
         int age = -1;
         assertThrows(IllegalArgumentException.class,
-                () -> new BoardGame("Иван и 1001 ночь", age, 100.0),
+                () -> new BoardGame("Иван и 1001 ночь", age, 100),
                 "Конструктор должен выбрасывать IllegalArgumentException при обработке неправильного возраста");
     }
 
@@ -56,7 +56,7 @@ public class BoardGameTest {
             "23, true"
     })
     void testCanBeRentValidation(int age, boolean expectedResult) {
-        BoardGame boardGame = new BoardGame("Иван Васильевич меняет профессию", 18, 2.2);
+        BoardGame boardGame = new BoardGame("Иван Васильевич меняет профессию", 18, 22);
         assertEquals(expectedResult, boardGame.canBeRentedBy(age), "Результат проверки возраста клиента не совпал с ожидаемым"
         );
     }

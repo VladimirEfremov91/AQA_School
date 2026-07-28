@@ -8,53 +8,53 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BoardGameCatalogTest {
     @BeforeAll
     static void init() {
-        BoardGameCatalog boardGameCatalog = new BoardGameCatalog();
+        GameRental gameRental = new GameRental();
     }
 
     @Test
     void testAddGameHappyPath() {
-        BoardGameCatalog boardGameCatalog = new BoardGameCatalog();
-        BoardGame boardGame = new BoardGame("Зомби 3", 18, 33.1);
-        boardGameCatalog.addGame(boardGame);
-        assertEquals(boardGame, boardGameCatalog.getBoardGameCatalog().getLast(),
+        GameRental gameRental = new GameRental();
+        BoardGame boardGame = new BoardGame("Зомби 3", 18, 33);
+        gameRental.addGame(boardGame);
+        assertEquals(boardGame, gameRental.getBoardGameCatalog().getLast(),
         "Метод добавления игры в каталог работает некорректно");
     }
 
     @Test
     void testAddNullBoardGame() {
-        BoardGameCatalog boardGameCatalog = new BoardGameCatalog();
+        GameRental gameRental = new GameRental();
         BoardGame boardGame = null;
-        assertThrows(IllegalArgumentException.class, () -> boardGameCatalog.addGame(boardGame),
+        assertThrows(IllegalArgumentException.class, () -> gameRental.addGame(boardGame),
                 "Конструктор должен выбрасывать IllegalArgumentException при добавлении null");
     }
 
     @Test
     void testAddSameGame() {
-        BoardGameCatalog boardGameCatalog = new BoardGameCatalog();
-        BoardGame boardGame = new BoardGame("Зомби 3", 18, 33.1);
-        boardGameCatalog.addGame(boardGame);
-        assertThrows(IllegalArgumentException.class, () -> boardGameCatalog.addGame(boardGame),
+        GameRental gameRental = new GameRental();
+        BoardGame boardGame = new BoardGame("Зомби 3", 18, 33);
+        gameRental.addGame(boardGame);
+        assertThrows(IllegalArgumentException.class, () -> gameRental.addGame(boardGame),
                 "Конструктор должен выбрасывать IllegalArgumentException при повторном добавлении");
     }
 
     @Test
     void testFindGameByTittleHappyPath() {
-        BoardGameCatalog boardGameCatalog = new BoardGameCatalog();
-        BoardGame testGame = new BoardGame("testGame", 65, 3.1);
-        boardGameCatalog.addGame(new BoardGame("Зомби 3", 18, 33.1));
-        boardGameCatalog.addGame(new BoardGame("Холодное сердце", 3, 32.1));
-        boardGameCatalog.addGame(testGame);
-        assertEquals(testGame, boardGameCatalog.findBoardGameByTitle(testGame.getTitle()),
+        GameRental gameRental = new GameRental();
+        BoardGame testGame = new BoardGame("testGame", 65, 3);
+        gameRental.addGame(new BoardGame("Зомби 3", 18, 33));
+        gameRental.addGame(new BoardGame("Холодное сердце", 3, 32));
+        gameRental.addGame(testGame);
+        assertEquals(testGame, gameRental.findBoardGameByTitle(testGame.getTitle()),
                 "Метод должен находить игру по точному совпадению названия");
     }
 
     @Test
     void testFindGameByTittleNoGame() {
-        BoardGameCatalog boardGameCatalog = new BoardGameCatalog();
+        GameRental gameRental = new GameRental();
         String testGame = "Проездной2";
-        boardGameCatalog.addGame(new BoardGame("Зомби 3", 18, 33.1));
-        boardGameCatalog.addGame(new BoardGame("Холодное сердце", 3, 32.1));
-        assertNull(boardGameCatalog.findBoardGameByTitle(testGame),
+        gameRental.addGame(new BoardGame("Зомби 3", 18, 33));
+        gameRental.addGame(new BoardGame("Холодное сердце", 3, 32));
+        assertNull(gameRental.findBoardGameByTitle(testGame),
                 "Метод должен находить игру по точному совпадению названия");
     }
 }

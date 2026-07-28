@@ -3,7 +3,7 @@ package org.lesson15;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardGameCatalog {
+public class GameRental {
 
     private final List<BoardGame> boardGameCatalog = new ArrayList<>();
 
