@@ -6,10 +6,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardGameRentalTest {
 
+    private final BoardGame TEST_GAME = new BoardGame("Зомби 3", 18, 33.1);
+
     @Test
     void testRentBoardGameHappyPath() {
         BoardGameCatalog boardGameCatalog = new BoardGameCatalog();
-        boardGameCatalog.addGame(new BoardGame("Зомби 3", 18, 33.1));
+        boardGameCatalog.addGame(TEST_GAME);
         assertTrue(boardGameCatalog.rentGame("Зомби 3", 21),
                 "Метод аренды вернул неожиданный ответ");
         assertTrue(boardGameCatalog.findBoardGameByTitle("Зомби 3").isRent(),
@@ -19,7 +21,7 @@ public class BoardGameRentalTest {
     @Test
     void testRentBoardGameNotFound() {
         BoardGameCatalog boardGameCatalog = new BoardGameCatalog();
-        boardGameCatalog.addGame(new BoardGame("Зомби 3", 18, 33.1));
+        boardGameCatalog.addGame(TEST_GAME);
         assertThrows(IllegalArgumentException.class,
                 () -> boardGameCatalog.rentGame("Зомби 4", 21),
                 "Метод IllegalArgumentException при несуществующем названии");
@@ -28,7 +30,7 @@ public class BoardGameRentalTest {
     @Test
     void testRentBoardGameInvalidClientAge() {
         BoardGameCatalog boardGameCatalog = new BoardGameCatalog();
-        boardGameCatalog.addGame(new BoardGame("Зомби 3", 18, 33.1));
+        boardGameCatalog.addGame(TEST_GAME);
         assertFalse(boardGameCatalog.rentGame("Зомби 3", 3),
                 "Метод аренды вернул неожиданный ответ");
     }
@@ -49,7 +51,7 @@ public class BoardGameRentalTest {
         BoardGame boardGame = new BoardGame("Зомби 3", 18, 33.1);
         boardGame.setRent(true);
         boardGameCatalog.addGame(boardGame);
-        assertTrue(boardGameCatalog.rentGame("Зомби 3", 21),
+        assertTrue(boardGameCatalog.returnGame("Зомби 3"),
                 "Метод returnBoardGame должен вернуть true при успешном возврате арендованной игры");
         assertFalse(boardGame.isRent(),
                 "После успешного возврата игра не должна иметь признак аренды"
@@ -60,7 +62,7 @@ public class BoardGameRentalTest {
     void testReturnBoardGameNotFound() {
         BoardGameCatalog boardGameCatalog = new BoardGameCatalog();
         boardGameCatalog.addGame(new BoardGame("Зомби 3", 18, 33.1));
-        assertFalse(boardGameCatalog.returnBoardGame("Зомби 4"),
+        assertFalse(boardGameCatalog.returnGame("Зомби 4"),
                 "Метод returnBoardGame должен вернуть false при возврате несуществующей игры");
     }
 
@@ -68,8 +70,8 @@ public class BoardGameRentalTest {
     void testReturnBoardGameNotRented() {
         BoardGameCatalog boardGameCatalog = new BoardGameCatalog();
         boardGameCatalog.addGame(new BoardGame("Зомби 3", 18, 33.1));
-        assertTrue(boardGameCatalog.returnBoardGame("Зомби 3"),
-                "Метод аренды вернул неожиданный ответ");
+        assertFalse(boardGameCatalog.returnGame("Зомби 3"),
+                "Метод returnBoardGame должен вернуть false при возврате неарендованной игры");
     }
 
 

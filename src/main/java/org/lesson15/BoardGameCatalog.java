@@ -33,4 +33,29 @@ public class BoardGameCatalog {
         return null;
     }
 
+    public boolean rentGame(String title, int customerAge) {
+        BoardGame boardGame = findBoardGameByTitle(title);
+        if (boardGame == null) {throw new IllegalArgumentException("Игра отсутствует в каталоге");}
+        if (!boardGame.canBeRentedBy(customerAge)) {
+            return false;
+        }
+        if (boardGame.isRent()) {
+            return false;
+        }
+        boardGame.setRent(true);
+        return true;
+    }
+
+    public boolean returnGame(String title) {
+        BoardGame boardGame = findBoardGameByTitle(title);
+        if (boardGame == null) {
+            return false;
+        }
+        if (!boardGame.isRent()) {
+            return false;
+        }
+        boardGame.setRent(false);
+        return true;
+    }
+
 }
