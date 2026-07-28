@@ -1,72 +1,76 @@
 package org.lesson15;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardGameCatalogTest {
-    @BeforeAll
-    static void init() {
-        GameRental gameRental = new GameRental();
+
+    private GameRental gameRental;
+
+    @BeforeEach
+    void setUp() {
+        gameRental = new GameRental();
     }
 
     @Test
     void testAddGameHappyPath() {
-        GameRental gameRental = new GameRental();
         BoardGame boardGame = new BoardGame("Зомби 3", 18, 33);
         gameRental.addGame(boardGame);
         assertEquals(boardGame, gameRental.getBoardGameCatalog().getLast(),
-        "Метод добавления игры в каталог работает некорректно");
+                "Метод добавления игры в каталог работает некорректно");
     }
 
     @Test
     void testAddNullBoardGame() {
-        GameRental gameRental = new GameRental();
-        BoardGame boardGame = null;
-        assertThrows(IllegalArgumentException.class, () -> gameRental.addGame(boardGame),
-                "Конструктор должен выбрасывать IllegalArgumentException при добавлении null");
+        assertThrows(IllegalArgumentException.class, () -> gameRental.addGame(null),
+                "Метод должен выбрасывать IllegalArgumentException при добавлении null");
     }
 
     @Test
     void testAddSameGame() {
-        GameRental gameRental = new GameRental();
         BoardGame boardGame = new BoardGame("Зомби 3", 18, 33);
         gameRental.addGame(boardGame);
-        assertThrows(IllegalArgumentException.class, () -> gameRental.addGame(boardGame),
-                "Конструктор должен выбрасывать IllegalArgumentException при повторном добавлении");
+
+        assertThrows(
+                IllegalArgumentException.class, () -> gameRental.addGame(boardGame),
+                "Метод должен выбрасывать IllegalArgumentException при повторном добавлении игры");
     }
 
     @Test
-    void testFindGameByTittleHappyPath() {
-        GameRental gameRental = new GameRental();
+    void testFindGameByTitleHappyPath() {
         BoardGame testGame = new BoardGame("testGame", 65, 3);
         gameRental.addGame(new BoardGame("Зомби 3", 18, 33));
         gameRental.addGame(new BoardGame("Холодное сердце", 3, 32));
         gameRental.addGame(testGame);
-        assertEquals(testGame, gameRental.findBoardGameByTitle(testGame.getTitle()),
-                "Метод должен находить игру по точному совпадению названия");
+        BoardGame actualGame = gameRental.findBoardGameByTitle(testGame.getTitle());
+        assertEquals(testGame, actualGame, "Метод должен находить игру по точному совпадению названия");
     }
 
     @Test
-    void testFindGameByTittleNoGame() {
-        GameRental gameRental = new GameRental();
-        String testGame = "Проездной2";
+    void testFindGameByTitleNoGame() {
+        String nonexistentTitle = "Проездной2";
         gameRental.addGame(new BoardGame("Зомби 3", 18, 33));
         gameRental.addGame(new BoardGame("Холодное сердце", 3, 32));
-        assertNull(gameRental.findBoardGameByTitle(testGame),
-                "Метод должен находить игру по точному совпадению названия");
+        BoardGame actualGame = gameRental.findBoardGameByTitle(nonexistentTitle);
+        assertNull(actualGame, "Метод должен возвращать null, если игра с указанным названием не найдена");
     }
 
     @Test
     void testBoardGameResetHappyPath() {
-        GameRental gameRental = new GameRental();
-        BoardGame testGame = new BoardGame("testGame", 65, 3);
-        testGame.setRent(true);
-        gameRental.addGame(testGame);
-        gameRental.addGame(new BoardGame("Baba Yaga", 20, 33));
+        BoardGame rentedGame = new BoardGame("testGame", 65, 3);
+        rentedGame.setRent(true);
+        BoardGame availableGame = new BoardGame("Baba Yaga", 20, 33);
+        gameRental.addGame(rentedGame);
+        gameRental.addGame(availableGame);
         gameRental.reset();
-        assertFalse(gameRental.findBoardGameByTitle("testGame").isRent());
-        assertFalse(gameRental.findBoardGameByTitle("Baba Yaga").isRent());
+        assertAll(
+                "После reset() все игры должны иметь признак аренды false",
+                () -> assertFalse(gameRental.findBoardGameByTitle("testGame").isRent(),
+                        "Метод reset() не сбросил признак аренды у игры testGame"),
+                () -> assertFalse(gameRental.findBoardGameByTitle("Baba Yaga").isRent(),
+                        "Метод reset() некорректно обработал игру Baba Yaga")
+        );
     }
 }

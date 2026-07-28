@@ -73,6 +73,4 @@ public class BoardGameRentalTest {
         assertFalse(gameRental.returnGame("Зомби 3"),
                 "Метод returnBoardGame должен вернуть false при возврате неарендованной игры");
     }
-
-
 }

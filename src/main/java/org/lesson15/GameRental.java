@@ -69,4 +69,11 @@ public class GameRental {
         return rentalDays * boardGame.getOneDayPrice();
     }
 
+    public void reset() {
+        for (BoardGame game : boardGameCatalog) {
+            game.setRent(false);
+            }
+    }
+
+
 }
