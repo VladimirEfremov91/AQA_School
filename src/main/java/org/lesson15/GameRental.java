@@ -58,4 +58,15 @@ public class GameRental {
         return true;
     }
 
+    public int calculateCost(String title, int rentalDays) {
+        BoardGame boardGame = findBoardGameByTitle(title);
+        if (boardGame == null) {
+            throw new IllegalArgumentException("Игра отсутствует в каталоге");
+        }
+        if (rentalDays <= 0) {
+            throw new IllegalArgumentException("Количество дней аренды <=0");
+        }
+        return rentalDays * boardGame.getOneDayPrice();
+    }
+
 }

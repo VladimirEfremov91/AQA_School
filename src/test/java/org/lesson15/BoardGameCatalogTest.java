@@ -57,4 +57,16 @@ public class BoardGameCatalogTest {
         assertNull(gameRental.findBoardGameByTitle(testGame),
                 "Метод должен находить игру по точному совпадению названия");
     }
+
+    @Test
+    void testBoardGameResetHappyPath() {
+        GameRental gameRental = new GameRental();
+        BoardGame testGame = new BoardGame("testGame", 65, 3);
+        testGame.setRent(true);
+        gameRental.addGame(testGame);
+        gameRental.addGame(new BoardGame("Baba Yaga", 20, 33));
+        gameRental.reset();
+        assertFalse(gameRental.findBoardGameByTitle("testGame").isRent());
+        assertFalse(gameRental.findBoardGameByTitle("Baba Yaga").isRent());
+    }
 }

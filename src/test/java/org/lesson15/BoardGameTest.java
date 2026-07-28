@@ -15,7 +15,7 @@ public class BoardGameTest {
             "'Для самых маленьких', 0, 250",
             "'Дурак', 3, 0"
     })
-    void testCreateBoardGameHappyPath(String title, int minAge, double oneDayPrice) {
+    void testCreateBoardGameHappyPath(String title, int minAge, int oneDayPrice) {
         BoardGame boardGame = new BoardGame(title, minAge, oneDayPrice);
         assertEquals(title, boardGame.getTitle(), "Конструктор некорректно обработал название игры");
         assertEquals(oneDayPrice, boardGame.getOneDayPrice(), "Конструктор некорректно обработал цену игры");
@@ -43,7 +43,7 @@ public class BoardGameTest {
 
     @Test
     void testCreateBoardGamePriceValidation() {
-        double price = -1.0;
+        int price = -1;
         assertThrows(IllegalArgumentException.class,
                 () -> new BoardGame("Иван и 1001 ночь", 20, price),
                 "Конструктор должен выбрасывать IllegalArgumentException при обработке неправильной цены");
