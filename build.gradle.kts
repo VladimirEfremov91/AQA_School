@@ -15,6 +15,7 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("net.datafaker:datafaker:2.5.4")
     implementation("com.github.lalyos:jfiglet:0.0.8")
+    testImplementation("net.datafaker:datafaker:2.5.4")
     testImplementation("io.rest-assured:rest-assured:6.0.0")
     testImplementation("org.hamcrest:hamcrest:3.0")
 }

@@ -3,6 +3,7 @@ package org.lesson17;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import net.datafaker.Faker;
 import org.junit.jupiter.api.*;
 
 import static io.restassured.RestAssured.given;
@@ -11,13 +12,18 @@ import static org.hamcrest.Matchers.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ServeRestTest {
-    private static String userId = "";
+    private static String userEmail;
+    private static String userId;
+    private static String userToken;
+
 
 //  Задание 1. Открываем магазин — настройка
     @BeforeAll
     static void setup() {
         RestAssured.baseURI = "https://serverest.dev";
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+        Faker faker = new Faker();
+        userEmail = faker.internet().emailAddress();
     }
 
 //  Задание 2. Кто здесь уже покупал?
@@ -58,11 +64,11 @@ public class ServeRestTest {
         String newUserRequestBody = """
         {
           "nome": "Секретный Проверятель",
-          "email": "spy_%d@qa123.com",
+          "email": "%s",
           "password": "customer777",
           "administrador": "true"
         }
-        """.formatted(System.currentTimeMillis());
+        """.formatted(userEmail);
         Response response = given()
                 .contentType(ContentType.JSON)
                 .body(newUserRequestBody)
@@ -82,11 +88,11 @@ public class ServeRestTest {
         String newUserRequestBody = """
         {
           "nome": "Совершенно Секретный Проверятель",
-          "email": "spy_%d@qa123.com",
+          "email": "%s",
           "password": "customer777",
           "administrador": "false"
         }
-        """.formatted(System.currentTimeMillis());
+        """.formatted(userEmail);
 
         given()
                 .pathParam("id", userId)
@@ -97,5 +103,43 @@ public class ServeRestTest {
                 .statusCode(200)
                 .body("message", equalTo("Registro alterado com sucesso"));
 
+    }
+
+//    Задание 6. «Ключ от служебного входа» — авторизация + DELETE (10 мин)
+    @Test
+    @Order(5)
+    public void shouldLogin() {
+        String loginRequestBody = """
+                {
+                  "email": "%s",
+                  "password": "customer777"
+                }""".formatted(userEmail);
+
+        Response loginResponse = given().contentType(ContentType.JSON)
+                .body(loginRequestBody)
+                .when().post("/login");
+
+        loginResponse.then().statusCode(200)
+                .body("message", equalTo("Login realizado com sucesso"))
+                .body("authorization", notNullValue());
+
+        userToken = loginResponse.then().extract().path("authorization");
+    }
+
+    @Test
+    @Order(6)
+    public void shouldDeleteUser() {
+        given().pathParam("id", userId)
+                .header("Authorization", userToken)
+                .when().delete("/usuarios/{id}")
+                .then().log().all()
+                .statusCode(200)
+                .body("message", equalTo("Registro excluído com sucesso"));
+
+        given().pathParam("id", userId)
+                .when().get("/usuarios/{id}")
+                .then().log().all()
+                .statusCode(400)
+                .body("message", equalTo("Usuário não encontrado"));
     }
 }
