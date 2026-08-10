@@ -142,4 +142,17 @@ public class ServeRestTest {
                 .statusCode(400)
                 .body("message", equalTo("Usuário não encontrado"));
     }
+
+//    Задание 7. «Каталог товаров» — GET + Hamcrest
+    @Test
+    @Order(7)
+    public void shouldGetAllProducts() {
+        when().get("/produtos")
+                .then().log().all()
+                .statusCode(200)
+                .body("quantidade", greaterThan(0))
+                .body("produtos.preco", everyItem(greaterThan(0)))
+                .body("produtos.nome", everyItem(notNullValue()))
+                .body("produtos.nome", hasItem("Notebook Lenovo 3a81783c-a81d-4567-908a-523a85aa118d"));
+    }
 }
