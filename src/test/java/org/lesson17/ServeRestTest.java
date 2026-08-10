@@ -12,6 +12,7 @@ import static org.hamcrest.Matchers.*;
 
 
 public class ServeRestTest {
+    private static String userId;
 
 //  Задание 1. Открываем магазин — настройка
     @BeforeAll
@@ -34,18 +35,41 @@ public class ServeRestTest {
     //  Задание 3. «Досье на клиента» — GET с query-параметром
     @Test
     public void shouldFindUserByEmail() {
-
         String email = when()
                 .get("/usuarios")
                 .then()
                 .extract()
                 .path("usuarios[0].email");
 
-        given().queryParam("email", email)
+        given()
+                .queryParam("email", email)
                 .when().get("/usuarios")
                 .then().log().all()
                 .statusCode(200)
                 .body("quantidade", equalTo(1))
                 .body("usuarios[0].email", equalTo(email));
+    }
+
+    // Задание 4. «Открываем новый аккаунт» — POST
+    @Test
+    public void shouldCreateNewUser() {
+        String newUserRequestBody = """
+        {
+          "nome": "Секретный Проверятель",
+          "email": "spy_%d@qa123.com",
+          "password": "customer777",
+          "administrador": "true"
+        }
+        """.formatted(System.currentTimeMillis());
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .body(newUserRequestBody)
+                .when().post("/usuarios");
+
+        response.then()
+                .statusCode(201)
+                .body("message", equalTo("Cadastro realizado com sucesso"))
+                .body("_id", notNullValue());
+        userId  = response.then().extract().path("_id");
     }
 }
