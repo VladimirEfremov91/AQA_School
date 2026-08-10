@@ -15,6 +15,7 @@ public class ServeRestTest {
     private static String userEmail;
     private static String userId;
     private static String userToken;
+    private static Usuario usuario;
 
 
 //  Задание 1. Открываем магазин — настройка
@@ -24,6 +25,7 @@ public class ServeRestTest {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         Faker faker = new Faker();
         userEmail = faker.internet().emailAddress();
+        usuario =  new Usuario("Ваня Пупкин", userEmail, "pass123", "true");
     }
 
 //  Задание 2. Кто здесь уже покупал?
@@ -31,8 +33,7 @@ public class ServeRestTest {
     @Order(1)
     public void shouldGetAllUsers() {
         when().get("/usuarios")
-                .then().log().all()
-                .statusCode(200)
+                .then().statusCode(200)
                 .contentType(ContentType.JSON)
                 .body("quantidade", greaterThan(0))
                 .body("usuarios.size()", greaterThan(0));
@@ -51,8 +52,7 @@ public class ServeRestTest {
         given()
                 .queryParam("email", email)
                 .when().get("/usuarios")
-                .then().log().all()
-                .statusCode(200)
+                .then().statusCode(200)
                 .body("quantidade", equalTo(1))
                 .body("usuarios[0].email", equalTo(email));
     }
@@ -99,8 +99,7 @@ public class ServeRestTest {
                 .contentType(ContentType.JSON)
                 .body(newUserRequestBody)
                 .when().put("/usuarios/{id}")
-                .then().log().all()
-                .statusCode(200)
+                .then().statusCode(200)
                 .body("message", equalTo("Registro alterado com sucesso"));
 
     }
@@ -132,14 +131,12 @@ public class ServeRestTest {
         given().pathParam("id", userId)
                 .header("Authorization", userToken)
                 .when().delete("/usuarios/{id}")
-                .then().log().all()
-                .statusCode(200)
+                .then().statusCode(200)
                 .body("message", equalTo("Registro excluído com sucesso"));
 
         given().pathParam("id", userId)
                 .when().get("/usuarios/{id}")
-                .then().log().all()
-                .statusCode(400)
+                .then().statusCode(400)
                 .body("message", equalTo("Usuário não encontrado"));
     }
 
@@ -148,11 +145,26 @@ public class ServeRestTest {
     @Order(7)
     public void shouldGetAllProducts() {
         when().get("/produtos")
-                .then().log().all()
-                .statusCode(200)
+                .then().statusCode(200)
                 .body("quantidade", greaterThan(0))
                 .body("produtos.preco", everyItem(greaterThan(0)))
                 .body("produtos.nome", everyItem(notNullValue()))
                 .body("produtos.nome", hasItem("Notebook Lenovo 3a81783c-a81d-4567-908a-523a85aa118d"));
+    }
+
+    // Задание со звёздочкой (бонус). «Первый DTO»
+    @Test
+    @Order(8)
+    public void shouldCreateNewUserFromDto() {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .body(usuario)
+                .when().post("/usuarios");
+
+        response.then()
+                .statusCode(201)
+                .body("message", equalTo("Cadastro realizado com sucesso"))
+                .body("_id", notNullValue());
+        userId  = response.then().extract().path("_id");
     }
 }
