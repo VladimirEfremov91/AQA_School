@@ -10,6 +10,8 @@ repositories {
 }
 
 dependencies {
+    compileOnly("org.projectlombok:lombok:1.18.46")
+    annotationProcessor("org.projectlombok:lombok:1.18.46")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.junit.platform:junit-platform-suite")
@@ -21,6 +23,10 @@ dependencies {
 
     implementation("net.datafaker:datafaker:2.5.4")
     implementation("com.github.lalyos:jfiglet:0.0.8")
+    implementation("tools.jackson.core:jackson-databind:3.2.1")
+    testImplementation("net.datafaker:datafaker:2.5.4")
+    testImplementation("io.rest-assured:rest-assured:6.0.0")
+    testImplementation("org.hamcrest:hamcrest:3.0")
 }
 
 tasks.test {
