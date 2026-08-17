@@ -69,16 +69,15 @@ public class ServeRestTest {
           "administrador": "true"
         }
         """.formatted(userEmail);
-        Response response = given()
+        userId = given()
                 .contentType(ContentType.JSON)
                 .body(newUserRequestBody)
-                .when().post("/usuarios");
-
-        response.then()
+                .when().post("/usuarios")
+                .then()
                 .statusCode(201)
                 .body("message", equalTo("Cadastro realizado com sucesso"))
-                .body("_id", notNullValue());
-        userId  = response.then().extract().path("_id");
+                .body("_id", notNullValue())
+                .extract().path("_id");
     }
 
 //    Задание 5. «Смена данных клиента» — PUT
@@ -144,27 +143,32 @@ public class ServeRestTest {
     @Test
     @Order(7)
     public void shouldGetAllProducts() {
+        String firstName = when()
+                .get("/produtos")
+                .then()
+                .extract()
+                .path("produtos[0].nome");
+
         when().get("/produtos")
                 .then().statusCode(200)
                 .body("quantidade", greaterThan(0))
                 .body("produtos.preco", everyItem(greaterThan(0)))
                 .body("produtos.nome", everyItem(notNullValue()))
-                .body("produtos.nome", hasItem("Notebook Lenovo 3a81783c-a81d-4567-908a-523a85aa118d"));
+                .body("produtos.nome", hasItem(firstName));
     }
 
     // Задание со звёздочкой (бонус). «Первый DTO»
     @Test
     @Order(8)
     public void shouldCreateNewUserFromDto() {
-        Response response = given()
+        userId = given()
                 .contentType(ContentType.JSON)
                 .body(usuario)
-                .when().post("/usuarios");
-
-        response.then()
+                .when().post("/usuarios")
+                .then()
                 .statusCode(201)
                 .body("message", equalTo("Cadastro realizado com sucesso"))
-                .body("_id", notNullValue());
-        userId  = response.then().extract().path("_id");
+                .body("_id", notNullValue())
+                .extract().path("_id");
     }
 }
