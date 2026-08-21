@@ -21,6 +21,8 @@ dependencies {
     testImplementation("net.datafaker:datafaker:2.5.4")
     testImplementation("io.rest-assured:rest-assured:6.0.0")
     testImplementation("org.hamcrest:hamcrest:3.0")
+    implementation("com.codeborne:selenide:7.17.0")
+    testImplementation("com.codeborne:selenide:7.17.0")
 }
 
 tasks.test {
