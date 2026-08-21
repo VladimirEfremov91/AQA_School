@@ -18,7 +18,6 @@ public class SecurePage {
     public void checkLoginSuccessAlertText(String loginSuccessAlertText) {
         loginSuccessAlert.shouldHave(text(loginSuccessAlertText));
     }
-
     public void checkLogoutButtonVisibility() {
         logoutButton.shouldBe(visible);
     }
